@@ -1,0 +1,72 @@
+{
+    "name": "kiabi_cypress_blank",
+    "description": "Blank project with examples for Cypress Kiabi",
+    "devDependencies": {
+        "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
+        "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+        "@cypress/browserify-preprocessor": "^3.0.2",
+        "@types/cypress-cucumber-preprocessor": "^4.0.2",
+        "@types/typescript": "^2.0.0",
+        "@types/yamljs": "^0.2.31",
+        "@typescript-eslint/eslint-plugin": "^6.4.0",
+        "@typescript-eslint/parser": "^6.4.0",
+        "allure-cypress": "^3.2.0",
+        "cypress": "^13.16.1",
+        "cypress-dotenv": "^2.0.0",
+        "cypress-on-fix": "^1.0.3",
+        "cypress-plugin-dotenv": "^1.2.1",
+        "dotenv": "^16.3.1",
+        "eslint-plugin-chai-friendly": "^0.7.2",
+        "eslint-plugin-cypress": "^2.14.0",
+        "gherkin-lint": "^4.2.2",
+        "mongodb": "^6.0.0",
+        "pg": "^8.11.3",
+        "prettier": "3.0.1",
+        "request": "^2.88.2",
+        "typescript": "^5.1.6",
+        "yamljs": "^0.3.0"
+    },
+    "scripts": {
+        "prettier:write": "npx prettier --write .",
+        "lint": "npx prettier -c . && eslint cypress/**/*.ts",
+        "lint:gherkin": "npx gherkin-lint",
+        "cypress:open:chrome": "npx cypress open --browser ./node_modules/chromium/lib/chromium/chrome-win/chrome.exe",
+        "cypress:run:chrome": "npx cypress run --browser ./node_modules/chromium/lib/chromium/chrome-win/chrome"
+    },
+    "cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinitions": false,
+        "stepDefinitions": "cypress/support/step_definitions/**/*.ts",
+        "json": {
+            "enabled": true,
+            "output": "reports/cucumber/json/cucumber-report.json",
+            "formater": "node",
+            "args": [
+                "cypress/utilities/report-formatter.js"
+            ]
+        },
+        "messages": {
+            "enabled": true,
+            "output": "reports/cucumber/messages/cucumber-messages.ndjson"
+        }
+    },
+    "author": "Lamorille Leo",
+    "contributors": [
+        {
+            "name": "Masschelein Dimitri"
+        }
+    ],
+    "license": "ISC",
+    "dependencies": {
+        "@cucumber/gherkin": "^30.0.4",
+        "@cucumber/messages": "^27.0.2",
+        "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+        "allure-commandline": "^2.30.0",
+        "axios": "^1.7.9",
+        "chromium": "^3.0.3",
+        "cucumber-json-report-formatter": "^0.1.4",
+        "fs": "^0.0.1-security",
+        "multiple-cucumber-html-reporter": "^3.9.2",
+        "oracledb": "^5.4.0",
+        "path": "^0.12.7"
+    }
+}
