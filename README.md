@@ -1,6 +1,6 @@
 # Exercices de découverte
 
-## Exercice Cypress UI
+## [Exercice Cypress UI](https://github.com/Formidabledu59/Exos_Testing_Cypress/tree/main/cypress-exercise-ui-main)
 
 Le but de l’exercice est de requêter une API en se familiarisant avec les outils Cypress comme les commandes et les taches
 
@@ -10,7 +10,7 @@ Les consignes sont dans le readme. Le but est de se familiariser avec Cypress en
 
 ---
 
-## Exercice Cypress API
+## [Exercice Cypress API](https://github.com/Formidabledu59/Exos_Testing_Cypress/tree/main/cypress-exercise-api-main)
 
 Le but de l’exercice est de requêter une API en se familiarisant avec les outils Cypress comme les commandes et les taches
 
