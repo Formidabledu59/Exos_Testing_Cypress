@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["ES2022", "dom"],
+        "types": ["cypress", "node"],
+        "esModuleInterop": true,
+        "paths": {
+            "@badeball/cypress-cucumber-preprocessor/*": [
+                "./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"
+            ]
+        },
+        "resolveJsonModule": true
+    },
+    "include": ["**/*.ts", "../cypress.d.ts", "../node_modules/cypress"]
+}

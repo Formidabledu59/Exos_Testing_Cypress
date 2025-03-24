@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.env
+
+# reports
+cypress/videos
+cypress/screenshots
+cypress/fixtures/test.json
+reports*
+output*

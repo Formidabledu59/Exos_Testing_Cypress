@@ -1,0 +1,17 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "plugins": ["cypress", "chai-friendly", "@typescript-eslint"],
+    "extends": [
+        "plugin:cypress/recommended",
+        "plugin:chai-friendly/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "ignorePatterns": ["/cypress/support/index.d.ts"],
+    "rules": {
+        "cypress/no-assigning-return-values": 0
+    }
+}
