@@ -346,7 +346,7 @@ Ajoute un scénario dans le fichier homepage.feature :
 ```gherkin
 Scenario: Afficher la liste déroulante du menu "Commands" et vérifier la présence de ses éléments
     Given je suis sur la page "/"
-    When je survole le menu "Commands"
+    When j'affiche le menu "Commands"
     Then les éléments suivants doivent être visibles dans la liste déroulante :
       | Querying            |
       | Traversal           |
@@ -369,9 +369,9 @@ Scenario: Afficher la liste déroulante du menu "Commands" et vérifier la prés
 
 Ajoute les étapes correspondantes dans le fichier homepage.ts :
 ```javascript
-// Survoler le menu "Commands"
-When('je survole le menu {string}', (menuText: string) => {
-    cy.contains('a', menuText).trigger('mouseover'); // Simule le survol du menu
+// Affciche le menu déroulant
+When('j\'affiche le menu {string}', (menuText: string) => {
+    cy.contains('a', menuText).click({ force: true }); // clique sur le menu spécifié
 });
 
 // Vérifier que les éléments de la liste déroulante sont visibles
