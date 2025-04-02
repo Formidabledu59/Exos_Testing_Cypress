@@ -18,7 +18,11 @@ Feature: Page d'accueil
   # Scenario: Vérifier qu'un élément ait bien la classe attendue
   #   Given je suis sur la page "/commands/actions"
   #   Then l'élément avec l'id "email1" doit avoir la classe "action-email"
-  
-  Scenario: Vérifier qu'un élément existe en utilisant .get()
+
+  # Scenario: Vérifier qu'un élément existe en utilisant .get()
+  #   Given je suis sur la page "/commands/actions"
+  #   Then l'élément avec l'id "email1" doit exister
+
+  Scenario: Vérifier qu'un élément existe dans la navbar en utilisant .contains()
     Given je suis sur la page "/commands/actions"
-    Then l'élément avec l'id "email1" doit exister
+    Then l'élément "Cypress API" doit exister dans la barre de navigation

@@ -47,3 +47,8 @@ Then('l\'élément avec l\'id {string} doit avoir la classe {string}', (id: stri
 Then('l\'élément avec l\'id {string} doit exister', (id: string) => {
     cy.get(`#${id}`).should('exist'); // Vérifie que l'élément existe
 });
+
+// Vérifier qu'un élément existe en utilisant .contains()
+Then('l\'élément {string} doit exister dans la barre de navigation', (elementText: string) => {
+    cy.get('#navbar').contains(elementText).should('exist'); // Vérifie que l'élément avec le texte existe dans la barre de navigation
+});

@@ -205,7 +205,7 @@ Then('l\'élément avec l\'id {string} doit avoir la classe {string}', (id: stri
 
 Ajoute un scénario dans le fichier homepage.feature :
 ```gherkin
-  Scenario: Vérifier qu'un élément existe en utilisant .get()
+Scenario: Vérifier qu'un élément existe en utilisant .get()
     Given je suis sur la page "/commands/actions"
     Then l'élément avec l'id "email1" doit exister
 ```
@@ -215,6 +215,23 @@ Ajoute les étapes correspondantes dans le fichier homepage.ts :
 // Vérifier qu'un élément existe en utilisant .get()
 Then('l\'élément avec l\'id {string} doit exister', (id: string) => {
     cy.get(`#${id}`).should('exist'); // Vérifie que l'élément existe
+});
+```
+
+## Exercice 6 : Vérifier qu'un élément existe en utilisant .contains() 
+
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+Scenario: Vérifier qu'un élément existe dans la navbar en utilisant .contains()
+    Given je suis sur la page "/commands/actions"
+    Then l'élément "Cypress API" doit exister dans la barre de navigation
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Vérifier qu'un élément existe en utilisant .contains()
+Then('l\'élément {string} doit exister dans la barre de navigation', (elementText: string) => {
+    cy.get('#navbar').contains(elementText).should('exist'); // Vérifie que l'élément avec le texte existe dans la barre de navigation
 });
 ```
 ---
