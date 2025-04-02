@@ -17,7 +17,7 @@ export const createRandomString = (length: number) => {
 // Fonction qui retourne la date actuelle au format ISO 8601.
 export const getNow = () => {
     const date = new Date();
-    return date.toISOString(); // Renvoie la date actuelle en ISO 8601.
+    return date.toISOString().split('.')[0] + 'Z'; // Supprime les millisecondes
 };
 
 // Fonction qui convertit une date au format UTC en heure locale de Paris.

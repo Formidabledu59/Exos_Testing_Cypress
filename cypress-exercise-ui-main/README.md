@@ -107,6 +107,63 @@ Then('le menu doit être visible', () => {
 });
 ```
 
+## Exercie 2 : Remplir un champ avec la date d'aujourd'hui et vérifier cette dernière
+
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+Scenario: Saisir la date du jour dans un champ
+    Given je suis sur la page "/commands/actions"
+    When je saisis la date du jour dans le champ avec l'id "description"
+    Then le champ avec l'id "description" doit contenir la date du jour
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { getNow } from '../utilities/util';
+
+// Naviguer vers une page spécifique
+Given('je suis sur la page {string}', (page: string) => {
+    cy.visit(page); // Navigue vers l'URL spécifiée
+});
+
+// Saisir la date du jour dans un champ
+When('je saisis la date du jour dans le champ avec l\'id {string}', (id: string) => {
+    const todayDate = getNow(); // Appel de la fonction pour obtenir la date actuelle
+    cy.get(`#${id}`).type(todayDate); // Saisir la date dans le champ
+});
+
+// Vérifier que le champ contient la date du jour
+Then('le champ avec l\'id {string} doit contenir la date du jour', (id: string) => {
+    const todayDate = getNow(); // Appel de la fonction pour obtenir la date actuelle
+    cy.get(`#${id}`).should('have.value', todayDate); // Vérifier que la valeur est correcte
+});
+```
+Lors de l'utilisation de getNow, une différence dans les millisecondes peut survenir entre la valeur générée et celle saisie dans le champ. Par exemple :
+
+- Généré : `2025-04-02T06:47:03.770Z`
+- Saisi : `2025-04-02T06:47:03.297Z`
+
+Pour résoudre ce problème, nous supprimons les millisecondes en modifiant getNow
+```javascript
+export const getNow = () => {
+    const date = new Date();
+    return date.toISOString().split('.')[0] + 'Z'; // Supprime les millisecondes
+};
+```
+
+##
+
+blabla
+```gherkin
+
+```
+
+blabla
+```javascript
+
+```
+
 ---
 
 ## Liens utiles
@@ -117,3 +174,15 @@ Then('le menu doit être visible', () => {
 
 [Doc Kiabi Cypress - Intégrer sur Gitlab CI](https://mykiabi.atlassian.net/wiki/spaces/TESTING/pages/4195254313/CI+CD)
 
+
+##
+
+blabla
+```gherkin
+
+```
+
+blabla
+```javascript
+
+```
