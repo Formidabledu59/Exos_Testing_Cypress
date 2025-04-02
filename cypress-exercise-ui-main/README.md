@@ -294,6 +294,51 @@ Then('la case avec la valeur {string} dans le conteneur {string} doit être coch
 });
 ```
 
+## Exercice 10 : Sélectionner une option dans un menu déroulant et afficher sa valeur
+
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+Scenario: Sélectionner une option dans un menu déroulant et afficher sa valeur
+    Given je suis sur la page "/commands/actions"
+    When je sélectionne l'option "apples" dans le menu déroulant avec la classe "action-select"
+    Then l'option "apples" doit être sélectionnée
+    And la valeur de l'option sélectionnée doit être affichée dans la console
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Sélectionner une option dans un menu déroulant
+When('je sélectionne l\'option {string} dans le menu déroulant avec la classe {string}', (option: string, selectClass: string) => {
+    cy.get(`.${selectClass}`).select(option); // Sélectionne l'option spécifiée
+});
+
+// Vérifier qu'une option est sélectionnée
+Then('l\'option {string} doit être sélectionnée', (option: string) => {
+    cy.get('.action-select').should('have.value', `fr-${option.toLowerCase()}`); // Vérifie que l'option est sélectionnée
+});
+
+// Afficher la valeur de l'option sélectionnée dans la console
+Then('la valeur de l\'option sélectionnée doit être affichée dans la console', () => {
+    cy.get('.action-select').invoke('val').then((value) => {
+        cy.task('log', `Valeur sélectionnée : ${value}`); // Affiche la valeur dans la console via une task
+    });
+});
+```
+Ajoute la task correspondante dans le fichier tasks.ts :
+```javascript
+module.exports = (on, config) => {
+    on('task', {
+        log(message) {
+            console.log(message); // Affiche le message dans la console Node.js
+            return null;
+        },
+    });
+};
+```
+Enregistre la task dans le fichier cypress.config.ts :
+```javascript
+import tasks from './cypress/support/tasks/tasks';
+```
 
 ---
 

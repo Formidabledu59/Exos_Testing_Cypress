@@ -68,3 +68,20 @@ When('je coche la case avec la valeur {string} dans le conteneur {string}', (val
 Then('la case avec la valeur {string} dans le conteneur {string} doit être cochée', (value: string, containerClass: string) => {
     cy.get(`.${containerClass} [type="checkbox"]`).should('be.checked'); // Vérifie que la case est cochée dans le conteneur
 });
+
+// Sélectionner une option dans un menu déroulant
+When('je sélectionne l\'option {string} dans le menu déroulant avec la classe {string}', (option: string, selectClass: string) => {
+    cy.get(`.${selectClass}`).select(option); // Sélectionne l'option spécifiée
+});
+
+// Vérifier qu'une option est sélectionnée
+Then('l\'option {string} doit être sélectionnée', (option: string) => {
+    cy.get('.action-select').should('have.value', `fr-${option.toLowerCase()}`); // Vérifie que l'option est sélectionnée
+});
+
+// Afficher la valeur de l'option sélectionnée dans la console
+Then('la valeur de l\'option sélectionnée doit être affichée dans la console', () => {
+    cy.get('.action-select').invoke('val').then((value) => {
+        cy.task('log', `Valeur sélectionnée : ${value}`); // Affiche la valeur dans la console via une task
+    });
+});

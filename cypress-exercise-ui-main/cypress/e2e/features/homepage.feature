@@ -32,7 +32,13 @@ Feature: Page d'accueil
   #   Then le titre de la page doit être "Cypress.io: Kitchen Sink"
   #   And le menu doit être visible
 
-Scenario: Sélectionner une case à cocher spécifique et vérifier qu'elle est bien cochée
+# Scenario: Sélectionner une case à cocher spécifique et vérifier qu'elle est bien cochée
+#     Given je suis sur la page "/commands/actions"
+#     When je coche la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes"
+#     Then la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes" doit être cochée
+
+Scenario: Sélectionner une option dans un menu déroulant et afficher sa valeur
     Given je suis sur la page "/commands/actions"
-    When je coche la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes"
-    Then la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes" doit être cochée
+    When je sélectionne l'option "apples" dans le menu déroulant avec la classe "action-select"
+    Then l'option "apples" doit être sélectionnée
+    And la valeur de l'option sélectionnée doit être affichée dans la console

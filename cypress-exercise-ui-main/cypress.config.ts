@@ -18,6 +18,9 @@ import { allureCypress } from 'allure-cypress/reporter';
 // Importation de fonctions utilitaires personnalisées
 import { setIncognitoBrowser } from './cypress/support/utilities/util';
 
+// Importation des tasks définies dans tasks.ts
+import tasks from './cypress/support/tasks/tasks';
+
 // Configuration de Cypress avec 'defineConfig' qui est exportée par défaut.
 export default defineConfig({
     // Identification du projet dans Cypress Dashboard (utile pour la gestion de projets).
@@ -55,7 +58,7 @@ export default defineConfig({
             await addCucumberPreprocessorPlugin(on, config);
 
             // Enregistrement d'une tâche personnalisée qui permet d'afficher la valeur d'un élément coché dans la console.
-            on('task', {});
+            tasks(on, config); // Enregistre les tasks définies dans tasks.ts
 
             // Enregistrement du préprocesseur esbuild pour une gestion optimisée des fichiers TypeScript et des modules.
             on(
