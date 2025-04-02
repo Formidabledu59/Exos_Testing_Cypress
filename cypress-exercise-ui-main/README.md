@@ -234,6 +234,42 @@ Then('l\'élément {string} doit exister dans la barre de navigation', (elementT
     cy.get('#navbar').contains(elementText).should('exist'); // Vérifie que l'élément avec le texte existe dans la barre de navigation
 });
 ```
+
+## Exercice 7 & 8 : Tester l'affichage du site sur mobile et tablette
+
+Ajoute un scénario dans le fichier `homepage.feature` pour tester l'affichage sur différents appareils (mobile et tablette) :
+
+| **Mobile**  | **Tablets**  | **Laptops**  |
+|-------------|--------------|--------------|
+| `iphone-xr` | `ipad-2`     | `macbook-16` |
+| `iphone-x`  | `ipad-mini`  | `macbook-15` |
+| `iphone-6+` |              | `macbook-13` |
+| `iphone-se2`|              | `macbook-11` |
+| `iphone-8`  |              |              |
+| `iphone-7`  |              |              |
+| `iphone-6`  |              |              |
+| `iphone-5`  |              |              |
+| `iphone-4`  |              |              |
+| `iphone-3`  |              |              |
+| `samsung-s10`|             |              |
+| `samsung-note9`|           |              |
+
+
+```gherkin
+Scenario: Tester l'affichage du site sur différents appareils
+    Given je suis sur la page d'accueil et je suis sur un appareil "DEVICE"
+    Then le titre de la page doit être "Cypress.io: Kitchen Sink"
+    And le menu doit être visible
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Naviguer vers la page d'accueil sur un appareil spécifique
+Given('je suis sur la page d\'accueil et je suis sur un appareil {string}', (device: string) => {
+    cy.visit("/"); // Navigue vers l'URL spécifiée
+    cy.viewport(device as Cypress.ViewportPreset); // Change la taille de la fenêtre pour simuler un appareil spécifique
+});
+```
 ---
 
 ## Liens utiles

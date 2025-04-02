@@ -23,6 +23,11 @@ Feature: Page d'accueil
   #   Given je suis sur la page "/commands/actions"
   #   Then l'élément avec l'id "email1" doit exister
 
-  Scenario: Vérifier qu'un élément existe dans la navbar en utilisant .contains()
-    Given je suis sur la page "/commands/actions"
-    Then l'élément "Cypress API" doit exister dans la barre de navigation
+  # Scenario: Vérifier qu'un élément existe dans la navbar en utilisant .contains()
+  #   Given je suis sur la page "/commands/actions"
+  #   Then l'élément "Cypress API" doit exister dans la barre de navigation
+
+  Scenario: Charger la page d'accueil sur un mobile et vérifier les éléments
+    Given je suis sur la page d'accueil et je suis sur un appareil "ipad-2"
+    Then le titre de la page doit être "Cypress.io: Kitchen Sink"
+    And le menu doit être visible

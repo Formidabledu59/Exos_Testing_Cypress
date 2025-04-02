@@ -52,3 +52,9 @@ Then('l\'élément avec l\'id {string} doit exister', (id: string) => {
 Then('l\'élément {string} doit exister dans la barre de navigation', (elementText: string) => {
     cy.get('#navbar').contains(elementText).should('exist'); // Vérifie que l'élément avec le texte existe dans la barre de navigation
 });
+
+// Naviguer vers une page spécifique
+Given('je suis sur la page d\'accueil et je suis sur un appareil {string}', (device: string) => {
+    cy.visit("/"); // Navigue vers l'URL spécifiée
+    cy.viewport(device as Cypress.ViewportPreset); // Change la taille de la fenêtre pour simuler un appareil spécifique (ex: 'iphone-5')
+});
