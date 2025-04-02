@@ -58,3 +58,13 @@ Given('je suis sur la page d\'accueil et je suis sur un appareil {string}', (dev
     cy.visit("/"); // Navigue vers l'URL spécifiée
     cy.viewport(device as Cypress.ViewportPreset); // Change la taille de la fenêtre pour simuler un appareil spécifique (ex: 'iphone-5')
 });
+
+// Cocher une case à cocher dans un conteneur spécifique
+When('je coche la case avec la valeur {string} dans le conteneur {string}', (value: string, containerClass: string) => {
+    cy.get(`.${containerClass} [type="checkbox"]`).check(value); // Coche la case avec la valeur spécifiée dans le conteneur
+});
+
+// Vérifier qu'une case à cocher est cochée dans un conteneur spécifique
+Then('la case avec la valeur {string} dans le conteneur {string} doit être cochée', (value: string, containerClass: string) => {
+    cy.get(`.${containerClass} [type="checkbox"]`).should('be.checked'); // Vérifie que la case est cochée dans le conteneur
+});

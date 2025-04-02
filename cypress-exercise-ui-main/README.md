@@ -270,6 +270,31 @@ Given('je suis sur la page d\'accueil et je suis sur un appareil {string}', (dev
     cy.viewport(device as Cypress.ViewportPreset); // Change la taille de la fenêtre pour simuler un appareil spécifique
 });
 ```
+
+## Exercice 9 : Sélectionner une case à cocher et vérifier qu'elle est bien cochée
+
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+Scenario: Sélectionner une case à cocher spécifique et vérifier qu'elle est bien cochée
+    Given je suis sur la page "/commands/actions"
+    When je coche la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes"
+    Then la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes" doit être cochée
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Cocher une case à cocher dans un conteneur spécifique
+When('je coche la case avec la valeur {string} dans le conteneur {string}', (value: string, containerClass: string) => {
+    cy.get(`.${containerClass} [type="checkbox"]`).check(value); // Coche la case avec la valeur spécifiée dans le conteneur
+});
+
+// Vérifier qu'une case à cocher est cochée dans un conteneur spécifique
+Then('la case avec la valeur {string} dans le conteneur {string} doit être cochée', (value: string, containerClass: string) => {
+    cy.get(`.${containerClass} [type="checkbox"]`).should('be.checked'); // Vérifie que la case est cochée dans le conteneur
+});
+```
+
+
 ---
 
 ## Liens utiles

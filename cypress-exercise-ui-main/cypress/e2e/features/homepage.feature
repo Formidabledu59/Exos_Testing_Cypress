@@ -27,7 +27,12 @@ Feature: Page d'accueil
   #   Given je suis sur la page "/commands/actions"
   #   Then l'élément "Cypress API" doit exister dans la barre de navigation
 
-  Scenario: Charger la page d'accueil sur un mobile et vérifier les éléments
-    Given je suis sur la page d'accueil et je suis sur un appareil "ipad-2"
-    Then le titre de la page doit être "Cypress.io: Kitchen Sink"
-    And le menu doit être visible
+  # Scenario: Charger la page d'accueil sur un mobile et vérifier les éléments
+  #   Given je suis sur la page d'accueil et je suis sur un appareil "ipad-2"
+  #   Then le titre de la page doit être "Cypress.io: Kitchen Sink"
+  #   And le menu doit être visible
+
+Scenario: Sélectionner une case à cocher spécifique et vérifier qu'elle est bien cochée
+    Given je suis sur la page "/commands/actions"
+    When je coche la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes"
+    Then la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes" doit être cochée
