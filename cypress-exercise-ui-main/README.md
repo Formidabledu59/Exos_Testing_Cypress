@@ -184,7 +184,22 @@ Then('un popover doit être visible', () => {
     cy.get('.popover').should('be.visible'); // Vérifie que le popover avec la classe "popover" est visible
 });
 ```
+## Exercice 4 : Vérifier qu'un élément ait bien la classe attendue en utilisant une commande custom Cypress
 
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+Scenario: Vérifier qu'un élément ait bien la classe attendue
+    Given je suis sur la page "/commands/actions"
+    Then l'élément avec l'id "email1" doit avoir la classe "action-email"
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Vérifier qu'un élément possède une classe spécifique
+Then('l\'élément avec l\'id {string} doit avoir la classe {string}', (id: string, className: string) => {
+    cy.checkElementHasClass(`#${id}`, className); // Utilise la commande personnalisée
+});
+```
 ---
 
 ## Liens utiles

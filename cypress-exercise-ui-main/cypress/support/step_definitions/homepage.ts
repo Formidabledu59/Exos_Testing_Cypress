@@ -37,3 +37,8 @@ When('je clique sur le bouton avec le texte {string}', (buttonText: string) => {
 Then('un popover doit être visible', () => {
     cy.get('.popover').should('be.visible'); // Vérifie que le popover avec la classe "popover" est visible
 });
+
+// Vérifier qu'un élément possède une classe spécifique
+Then('l\'élément avec l\'id {string} doit avoir la classe {string}', (id: string, className: string) => {
+    cy.checkElementHasClass(`#${id}`, className); // Utilise la commande personnalisée
+});
