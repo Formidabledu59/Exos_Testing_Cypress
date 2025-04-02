@@ -85,3 +85,16 @@ Then('la valeur de l\'option sélectionnée doit être affichée dans la console
         cy.task('log', `Valeur sélectionnée : ${value}`); // Affiche la valeur dans la console via une task
     });
 });
+
+// Affciche le menu déroulant
+When('j\'affiche le menu {string}', (menuText: string) => {
+    cy.contains('a', menuText).click({ force: true }); // clique sur le menu spécifié
+});
+
+// Vérifier que les éléments de la liste déroulante sont visibles
+Then('les éléments suivants doivent être visibles dans la liste déroulante :', (dataTable) => {
+    const expectedItems = dataTable.rawTable.flat(); // Récupère les éléments attendus depuis le tableau Gherkin
+    expectedItems.forEach((item) => {
+        cy.get('.dropdown-menu').contains(item).should('be.visible'); // Vérifie que chaque élément est visible
+    });
+});

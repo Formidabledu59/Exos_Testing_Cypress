@@ -37,8 +37,30 @@ Feature: Page d'accueil
 #     When je coche la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes"
 #     Then la case avec la valeur "checkbox1" dans le conteneur "action-checkboxes" doit être cochée
 
-Scenario: Sélectionner une option dans un menu déroulant et afficher sa valeur
-    Given je suis sur la page "/commands/actions"
-    When je sélectionne l'option "apples" dans le menu déroulant avec la classe "action-select"
-    Then l'option "apples" doit être sélectionnée
-    And la valeur de l'option sélectionnée doit être affichée dans la console
+# Scenario: Sélectionner une option dans un menu déroulant et afficher sa valeur
+#     Given je suis sur la page "/commands/actions"
+#     When je sélectionne l'option "apples" dans le menu déroulant avec la classe "action-select"
+#     Then l'option "apples" doit être sélectionnée
+#     And la valeur de l'option sélectionnée doit être affichée dans la console
+
+Scenario: Afficher la liste déroulante du menu "Commands" et vérifier la présence de ses éléments
+    Given je suis sur la page "/"
+    When j'affiche le menu "Commands"
+    Then les éléments suivants doivent être visibles dans la liste déroulante :
+      | Querying            |
+      | Traversal           |
+      | Actions             |
+      | Window              |
+      | Viewport            |
+      | Location            |
+      | Navigation          |
+      | Assertions          |
+      | Misc                |
+      | Connectors          |
+      | Aliasing            |
+      | Waiting             |
+      | Network Requests    |
+      | Files               |
+      | Storage             |
+      | Cookies             |
+      | Spies, Stubs & Clocks |

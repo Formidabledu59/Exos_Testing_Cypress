@@ -340,6 +340,48 @@ Enregistre la task dans le fichier cypress.config.ts :
 import tasks from './cypress/support/tasks/tasks';
 ```
 
+## Exercice 11 : Afficher la liste déroulante du menu "Commands" et vérifier la présence de ses éléments
+
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+Scenario: Afficher la liste déroulante du menu "Commands" et vérifier la présence de ses éléments
+    Given je suis sur la page "/"
+    When je survole le menu "Commands"
+    Then les éléments suivants doivent être visibles dans la liste déroulante :
+      | Querying            |
+      | Traversal           |
+      | Actions             |
+      | Window              |
+      | Viewport            |
+      | Location            |
+      | Navigation          |
+      | Assertions          |
+      | Misc                |
+      | Connectors          |
+      | Aliasing            |
+      | Waiting             |
+      | Network Requests    |
+      | Files               |
+      | Storage             |
+      | Cookies             |
+      | Spies, Stubs & Clocks |
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Survoler le menu "Commands"
+When('je survole le menu {string}', (menuText: string) => {
+    cy.contains('a', menuText).trigger('mouseover'); // Simule le survol du menu
+});
+
+// Vérifier que les éléments de la liste déroulante sont visibles
+Then('les éléments suivants doivent être visibles dans la liste déroulante :', (dataTable) => {
+    const expectedItems = dataTable.rawTable.flat(); // Récupère les éléments attendus depuis le tableau Gherkin
+    expectedItems.forEach((item) => {
+        cy.get('.dropdown-menu').contains(item).should('be.visible'); // Vérifie que chaque élément est visible
+    });
+});
+```
 ---
 
 ## Liens utiles
@@ -351,14 +393,3 @@ import tasks from './cypress/support/tasks/tasks';
 [Doc Kiabi Cypress - Intégrer sur Gitlab CI](https://mykiabi.atlassian.net/wiki/spaces/TESTING/pages/4195254313/CI+CD)
 
 
-##
-
-Ajoute un scénario dans le fichier homepage.feature :
-```gherkin
-
-```
-
-Ajoute les étapes correspondantes dans le fichier homepage.ts :
-```javascript
-
-```
