@@ -15,6 +15,10 @@ Feature: Page d'accueil
   #   When je clique sur le bouton avec le texte "click me"
   #   Then un popover doit être visible
 
-  Scenario: Vérifier qu'un élément ait bien la classe attendue
+  # Scenario: Vérifier qu'un élément ait bien la classe attendue
+  #   Given je suis sur la page "/commands/actions"
+  #   Then l'élément avec l'id "email1" doit avoir la classe "action-email"
+  
+  Scenario: Vérifier qu'un élément existe en utilisant .get()
     Given je suis sur la page "/commands/actions"
-    Then l'élément avec l'id "email1" doit avoir la classe "action-email"
+    Then l'élément avec l'id "email1" doit exister

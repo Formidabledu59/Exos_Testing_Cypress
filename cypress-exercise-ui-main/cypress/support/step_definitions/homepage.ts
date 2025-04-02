@@ -42,3 +42,8 @@ Then('un popover doit être visible', () => {
 Then('l\'élément avec l\'id {string} doit avoir la classe {string}', (id: string, className: string) => {
     cy.checkElementHasClass(`#${id}`, className); // Utilise la commande personnalisée
 });
+
+// Vérifier qu'un élément existe en utilisant .get()
+Then('l\'élément avec l\'id {string} doit exister', (id: string) => {
+    cy.get(`#${id}`).should('exist'); // Vérifie que l'élément existe
+});

@@ -200,6 +200,23 @@ Then('l\'élément avec l\'id {string} doit avoir la classe {string}', (id: stri
     cy.checkElementHasClass(`#${id}`, className); // Utilise la commande personnalisée
 });
 ```
+
+## Exercice 5 : Vérifier qu'un élément existe en utilisant .get()
+
+Ajoute un scénario dans le fichier homepage.feature :
+```gherkin
+  Scenario: Vérifier qu'un élément existe en utilisant .get()
+    Given je suis sur la page "/commands/actions"
+    Then l'élément avec l'id "email1" doit exister
+```
+
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
+```javascript
+// Vérifier qu'un élément existe en utilisant .get()
+Then('l\'élément avec l\'id {string} doit exister', (id: string) => {
+    cy.get(`#${id}`).should('exist'); // Vérifie que l'élément existe
+});
+```
 ---
 
 ## Liens utiles
