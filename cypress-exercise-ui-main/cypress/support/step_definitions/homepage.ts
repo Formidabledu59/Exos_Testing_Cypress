@@ -27,3 +27,13 @@ Then('le champ avec l\'id {string} doit contenir la date du jour', (id: string) 
     const todayDate = getNow(); // Appel de la fonction pour obtenir la date actuelle
     cy.get(`#${id}`).should('have.value', todayDate); // Vérifier que la valeur est correcte
 });
+
+// Cliquer sur un élément avec un texte spécifique
+When('je clique sur le bouton avec le texte {string}', (buttonText: string) => {
+    cy.contains('span.label', buttonText).click(); // Trouve le <span> avec le texte et clique dessus
+});
+
+// Vérifier qu'un popover avec une classe spécifique est visible
+Then('un popover doit être visible', () => {
+    cy.get('.popover').should('be.visible'); // Vérifie que le popover avec la classe "popover" est visible
+});

@@ -144,6 +144,9 @@ Lors de l'utilisation de getNow, une différence dans les millisecondes peut sur
 - Généré : `2025-04-02T06:47:03.770Z`
 - Saisi : `2025-04-02T06:47:03.297Z`
 
+> [!CAUTION]
+> Il peut y avoir un ecart de 1 seconde !
+
 Pour résoudre ce problème, nous supprimons les millisecondes en modifiant getNow
 ```javascript
 export const getNow = () => {
@@ -152,16 +155,34 @@ export const getNow = () => {
 };
 ```
 
-##
+## Exercice 3 : Cliquer sur un bouton "click me" et vérifier la présence d'un popover
 
-blabla
+Ajoute un scénario dans le fichier homepage.feature :
 ```gherkin
-
+Scenario: Cliquer sur un bouton "click me" et vérifier la présence d'un popover
+    Given je suis sur la page "/commands/actions"
+    When je clique sur le bouton avec le texte "click me"
+    Then un popover doit être visible
 ```
 
-blabla
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
 ```javascript
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
+// Naviguer vers une page spécifique
+Given('je suis sur la page {string}', (page: string) => {
+    cy.visit(page); // Navigue vers l'URL spécifiée
+});
+
+// Cliquer sur un bouton avec un texte spécifique
+When('je clique sur le bouton avec le texte {string}', (buttonText: string) => {
+    cy.contains('span.label', buttonText).click(); // Trouve le <span> avec le texte et clique dessus
+});
+
+// Vérifier qu'un popover avec une classe spécifique est visible
+Then('un popover doit être visible', () => {
+    cy.get('.popover').should('be.visible'); // Vérifie que le popover avec la classe "popover" est visible
+});
 ```
 
 ---
@@ -177,12 +198,12 @@ blabla
 
 ##
 
-blabla
+Ajoute un scénario dans le fichier homepage.feature :
 ```gherkin
 
 ```
 
-blabla
+Ajoute les étapes correspondantes dans le fichier homepage.ts :
 ```javascript
 
 ```
