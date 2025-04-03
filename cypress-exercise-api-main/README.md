@@ -3,20 +3,6 @@
 > [!CAUTION]
 > Ne pas push sur ce projet :)
 
-**Ce projet est destiné à des fins éducatives et démonstratives**
-
-## Installation
-
-```
-# Cloner le dépôt sur votre machine
-git clone git@gitlab.gcp.kiabi.fr:testing/blank_projects/cypress_blank.git
-
-# (Ou télécharger le zip)
-
-# Installer les dépendances
-cd project/
-npm install
-```
 
 ## Contexte
 
@@ -56,12 +42,6 @@ Les fonctions qui seront appelées dans le processus Cypress sont les fonctions 
 
 Veillez à opter pour l'utilisation de Page Object Models afin d'optimiser la réutilisabilité du code et des éléments HTML
 
-### En dehors du contexte Cypress
-
-Les fonctions appelées en dehors du contexte Cypress sont les fontions qui servent à la manipulation de fichiers autour des tests par exemple la création d'un rapport d'exécution. Elles sont à écrire dans `\utilities`
-
----
-
 ## Exécution des Tests
 
 -   En utiliser l'interface Cypress: `npx cypress open`
@@ -80,6 +60,58 @@ Voici une liste de commandes utiles, adaptez les en fonction de vos besoins
 | `npm run lint`                                                                     | Prettier + EsLint                                                                     |
 | `npm run lint:gherkin`                                                             | Lint des fichiers `.feature`                                                          |
 
+# Realisation
+
+## Exercice 1 : Récupérer tous les posts
+
+Ajoute un scénario dans le fichier api.feature :
+```gherkin
+Feature: Tests de l'API avec Cypress
+
+  Scenario: Récupérer tous les posts
+    When j'envoie une requête GET à "/posts"
+    Then le statut de la réponse doit être 200
+    And la réponse doit contenir une liste de posts
+```
+
+Ajoute les étapes correspondantes dans le fichier api.ts :
+```javascript
+When('j\'envoie une requête GET à {string}', (endpoint: string) => {
+    cy.request(`${baseUrl}${endpoint}`).as('apiResponse');
+});
+
+Then('le statut de la réponse doit être {int}', (statusCode: number) => {
+    cy.get('@apiResponse').its('status').should('eq', statusCode);
+});
+
+Then('la réponse doit contenir une liste de posts', () => {
+    cy.get('@apiResponse').its('body').should('be.an', 'array').then((body) => {
+        cy.log('Liste des posts:', body); // Affiche la liste des posts dans la console
+    });
+    cy.get('@apiResponse').its('body.length').should('be.greaterThan', 0);
+});
+```
+## Exercice 2 : Récupérer un seul post
+
+Ajoute un scénario dans le fichier api.feature :
+```gherkin
+Feature: Tests de l'API avec Cypress
+
+  Scenario: Récupérer un post spécifique par ID
+    When j'envoie une requête GET à "/posts/1"
+    Then le statut de la réponse doit être 200
+    And la réponse doit contenir le post avec l'ID 1
+```
+
+Ajoute les étapes correspondantes dans le fichier api.ts :
+```javascript
+Then('la réponse doit contenir le post avec l\'ID {int}', (id: number) => {
+    cy.get('@apiResponse').its('body').should('be.an', 'object').then((body) => {
+        cy.log('Détails du post:', body); // Affiche les détails du post dans la console
+    });
+    cy.get('@apiResponse').its('body.id').should('eq', id);
+});
+```
 ---
 
 ## Liens utiles
@@ -89,3 +121,15 @@ Voici une liste de commandes utiles, adaptez les en fonction de vos besoins
 [Doc Kiabi Cypress](https://mykiabi.atlassian.net/wiki/spaces/TESTING/pages/3643900327/Cypress)
 
 [Doc Kiabi Cypress - Intégrer sur Gitlab CI](https://mykiabi.atlassian.net/wiki/spaces/TESTING/pages/4195254313/CI+CD)
+
+##
+
+Ajoute un scénario dans le fichier api.feature :
+```gherkin
+
+```
+
+Ajoute les étapes correspondantes dans le fichier api.ts :
+```javascript
+
+```
