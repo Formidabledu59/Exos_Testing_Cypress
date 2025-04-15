@@ -112,6 +112,121 @@ Then('la réponse doit contenir le post avec l\'ID {int}', (id: number) => {
     cy.get('@apiResponse').its('body.id').should('eq', id);
 });
 ```
+
+## Exercice 3 : Utiliser une task pour faire une requête GET avec Axios
+
+Ajoute un scénario dans le fichier api.feature :
+```gherkin
+Scenario: Utiliser une task pour faire une requête GET avec Axios
+  When j'utilise la task "apiRequest" avec la méthode "get" et l'URL "/posts/1"
+  Then la réponse de la task doit contenir un post avec l'ID 1
+
+```
+
+Ajoute les étapes correspondantes dans le fichier api.ts :
+```javascript
+When('j\'utilise la task {string} avec la méthode {string} et l\'URL {string}', (taskName: string, method: string, url: string) => {
+  cy.task(taskName, { method, url: `https://jsonplaceholder.typicode.com${url}` }).as('taskResponse');
+});
+
+Then('la réponse de la task doit contenir un post avec l\'ID {int}', (id: number) => {
+  cy.get('@taskResponse').should((response) => {
+    expect(response).to.have.property('id', id);
+  });
+});
+
+```
+
+Ajoute la task dans cypress/support/tasks/api_tasks.ts :
+```javascript
+import axios from 'axios';
+
+const apiRequest = async ({ method, url, data }: { method: string; url: string; data?: any }) => {
+  try {
+    const response = await axios({ method, url, data });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(`Erreur API: ${error?.response?.status} - ${error?.message}`);
+  }
+};
+
+export const registerApiTasks = (on: Cypress.PluginEvents) => {
+  on('task', {
+    apiRequest,
+  });
+};
+
+```
+
+Enfin, enregistre la task dans cypress.config.ts :
+```javascript
+import { registerApiTasks } from './cypress/support/tasks/api_tasks';
+
+setupNodeEvents(cypressOn, config) {
+  const on = require('cypress-on-fix')(cypressOn);
+
+  registerApiTasks(on);
+}
+```
+
+## Exercice 4 : Utiliser une task pour faire une requête POST avec Axios
+
+Ajoute un scénario dans le fichier api.feature :
+```gherkin
+Scenario: Utiliser une task pour faire une requête POST avec Axios
+  When j'utilise la task "apiRequest" avec la méthode "post", l'URL "/posts" et les données suivantes:
+    | title | body             | userId |
+    | test  | Ceci est un test | 1      |
+  Then la réponse de la task doit contenir un titre "test" et un userId 1
+
+```
+
+Ajoute les étapes correspondantes dans le fichier api.ts :
+```javascript
+  When(
+    'j\'utilise la task {string} avec la méthode {string}, l\'URL {string} et les données suivantes:',
+    (taskName: string, method: string, url: string, dataTable: any) => {
+        const data = dataTable.hashes()[0]; // Récupère la première ligne du tableau de données
+      data.userId = Number(data.userId); // Convertit userId en nombre
+      cy.task(taskName, { method, url: `https://jsonplaceholder.typicode.com${url}`, data }).as('taskResponse');
+    }
+  );
+  
+  Then('la réponse de la task doit contenir un titre {string} et un userId {int}', (title: string, userId: number) => {
+    cy.get('@taskResponse').should((response) => {
+      expect(response).to.have.property('title', title);
+      expect(response).to.have.property('userId', userId);
+    });
+  });
+```
+
+## Exercice 5 : Vérifier l'intégrité d'un post avec une commande
+
+Ajoute un scénario dans le fichier api.feature :
+```gherkin
+  Scenario: Vérifier l'intégrité des données d'un post
+    When j'envoie une requête GET à "/posts/1"
+    Then le post renvoyé doit avoir un titre et un body non vides
+
+```
+
+Ajoute les étapes correspondantes dans le fichier api.ts :
+```javascript
+Then('le post renvoyé doit avoir un titre et un body non vides', () => {
+  cy.get('@apiResponse').its('body').then((post) => {
+    cy.checkPostIntegrity(post);
+  });
+});
+
+```
+
+Ajoute la commande dans cypress/support/commands.ts :
+```javascript
+Cypress.Commands.add('checkPostIntegrity', (post) => {
+  expect(post).to.have.property('title').and.to.be.a('string').and.not.to.be.empty;
+  expect(post).to.have.property('body').and.to.be.a('string').and.not.to.be.empty;
+});
+```
 ---
 
 ## Liens utiles
@@ -122,14 +237,3 @@ Then('la réponse doit contenir le post avec l\'ID {int}', (id: number) => {
 
 [Doc Kiabi Cypress - Intégrer sur Gitlab CI](https://mykiabi.atlassian.net/wiki/spaces/TESTING/pages/4195254313/CI+CD)
 
-##
-
-Ajoute un scénario dans le fichier api.feature :
-```gherkin
-
-```
-
-Ajoute les étapes correspondantes dans le fichier api.ts :
-```javascript
-
-```

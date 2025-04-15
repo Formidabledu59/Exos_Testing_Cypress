@@ -6,6 +6,8 @@ import 'dotenv/config';
 import { dotenv } from 'cypress-plugin-dotenv';
 import { allureCypress } from 'allure-cypress/reporter';
 import { setIncognitoBrowser } from './cypress/support/utilities/util';
+import { registerApiTasks } from './cypress/support/tasks/api_tasks'; // 👈 ajoute cette ligne
+
 
 export default defineConfig({
     projectId: 'kgnray',
@@ -20,24 +22,28 @@ export default defineConfig({
         supportFile: 'cypress/support/e2e.ts',
         baseUrl: 'http://localhost',
         async setupNodeEvents(cypressOn, config) {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
             const on = require('cypress-on-fix')(cypressOn);
+          
+            registerApiTasks(on); // 👈 enregistre la task ici
+          
             allureCypress(on, config, {
-                resultsDir: 'reports/allure-results',
+              resultsDir: 'reports/allure-results',
             });
-            // allureWriter(on, config); // to get feature steps in allure report (not supported since cypress@12.14.0)
+          
             await addCucumberPreprocessorPlugin(on, config);
-            on('task', {});
+          
             on(
-                'file:preprocessor',
-                createBundler({
-                    plugins: [createEsbuildPlugin(config)],
-                }),
+              'file:preprocessor',
+              createBundler({
+                plugins: [createEsbuildPlugin(config)],
+              }),
             );
+          
             on('before:browser:launch', (browser, launchOptions) => {
-                return setIncognitoBrowser(browser, launchOptions);
+              return setIncognitoBrowser(browser, launchOptions);
             });
+          
             return dotenv(config);
-        },
+          },          
     },
 });
